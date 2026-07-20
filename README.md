@@ -1,33 +1,31 @@
-# CodeQuest Academy
+# Tea Plantation Advisor
 
-CodeQuest Academy is a beginner-friendly, story-driven [Google Agent Development Kit (ADK)](https://google.github.io/adk-docs/) demo for university workshops. Aang guides students through programming missions and uses Python function tools to recommend missions, describe them, and check whether a student is ready to begin. The fan-made theme draws on the Earth Kingdom journey, Toph, and Ba Sing Se from Netflix's *Avatar: The Last Airbender* Season 2.
-
-> This unofficial educational demo is not affiliated with or endorsed by Netflix, Nickelodeon, or the creators of *Avatar: The Last Airbender*.
+Tea Plantation Advisor is a beginner-friendly [Google Agent Development Kit (ADK)](https://google.github.io/adk-docs/) demo for agricultural advisory workshops. Leaf guides growers through the tea bush lifecycle and uses Python function tools to recommend the current growth stage from plant age, describe stages in detail, and generate reference illustrations.
 
 ## Features
 
 - A single ADK agent with a clear `root_agent` entry point
-- Six Earth Kingdom missions based on common programming challenges
-- Tools for listing quests, retrieving details, and checking hero readiness
-- On-demand mission illustrations saved as ADK session artifacts
-- A warm, playful Aang-inspired guide designed to make agent concepts approachable
+- Six tea bush growth stages, from nursery propagation to maintenance pruning
+- Tools for recommending a stage from plant age, listing stages, and retrieving stage details
+- On-demand tea plantation illustrations saved as ADK session artifacts
+- A warm, practical agronomist-inspired guide designed to make agent concepts approachable
 
-## Quest catalogue
+## Tea growth stages
 
-| Difficulty | Quest | Boss | Skill focus |
+| Phase | Stage | Age range | Key focus |
 | --- | --- | --- | --- |
-| Novice | The Unsteady Cabbage Cart | The Fencepost Badgermole | Loop boundaries |
-| Novice | The Null-Vine Marsh | The Vanishing Vine | Null checks |
-| Apprentice | The Echoing Crystal Catacombs | The Endless Echo | Base cases |
-| Apprentice | The Big-O Boulder Run | The Quadratic Quarry | Algorithm analysis |
-| Master | The Great Wall Merge Crisis | The Conflicting Gatekeeper | Git branching |
-| Master | The Twin-Gate Deadlock | The Waiting Gatekeepers | Concurrency |
+| Establishment | Nursery & Propagation | 0-6 months | Rooting cuttings under shade |
+| Establishment | Transplanting & Field Establishment | 6-18 months | Field planting and mulching |
+| Vegetative | Formative Pruning & Framework Building | 18-36 months | Building the plucking table |
+| Production | Early / Light Plucking | 36-48 months | First careful harvests |
+| Production | Mature Plucking Cycle | 48+ months, ongoing | Regular plucking rounds |
+| Maintenance | Maintenance & Rejuvenation Pruning | Recurring / age-triggered | Resetting bush productivity |
 
 ## Project structure
 
 ```text
 .
-├── codequest_agent/
+├── tea_plantation_agent/
 │   ├── __init__.py
 │   └── agent.py
 ├── .env.example
@@ -91,7 +89,7 @@ Local credentials, virtual environments, Python caches, and ADK session data are
 5. Edit `.env` and provide either your Google AI Studio API key or your Vertex AI project settings. Never commit this file.
 
 Image generation uses `gemini-3.1-flash-image` by default. You can override it by
-setting `CODEQUEST_IMAGE_MODEL` in `.env`. Your Google project or API key must have
+setting `TEA_IMAGE_MODEL` in `.env`. Your Google project or API key must have
 access to the selected image model.
 
 ## Run the agent
@@ -102,59 +100,51 @@ From the repository root, with the virtual environment active, run:
 adk web
 ```
 
-Open the local URL printed by ADK and select `codequest_agent`.
+Open the local URL printed by ADK and select `tea_plantation_agent`.
 
 ## Example prompts
 
-Start a journey:
+Start a conversation:
 
-- “Hi Aang! My name is Maya and I am level 1. Help me choose my first mission.”
-- “I am new to coding. What novice missions can I try?”
-- “Help me restore balance to my programming skills.”
+- "Hi Leaf! My tea plants are 10 months old, what stage are they in?"
+- "I just planted a new tea field. What should I expect in the first year?"
+- "What growth stages does a tea bush go through?"
 
-Explore missions:
+Explore stages:
 
-- “Show me the novice quests.”
-- “Tell me about QUEST-RECURSION.”
-- “What skills and XP can I earn from the Big-O Boulder Run?”
-- “Show me every mission available on the road to Ba Sing Se.”
+- "Show me all establishment-phase stages."
+- "Tell me about STAGE-MAINTENANCE-PRUNE."
+- "What are the common issues during the early plucking stage?"
 
-Check readiness:
+Get a recommendation:
 
-- “I am level 4. Am I ready for the Big-O Boulder Run?”
-- “Aang, I am level 10. Can I attempt QUEST-MERGECONFLICT?”
-- “I want to face the Twin-Gate Deadlock. My current level is 8.”
-
-Ask for guidance:
-
-- “I know loops but struggle with recursion. Which mission should I investigate?”
-- “Recommend a mission for a level 6 student and explain why it fits.”
-- “I entered an unknown quest ID. Can you show me the valid choices?”
+- "My tea plants are 40 months old. What should I be doing right now?"
+- "How many months until my 30-month-old plants reach the next stage?"
+- "I have a field that's 5 years old and yields are dropping. What stage should it be in?"
 
 Create images:
 
-- “Create a 16:9 image of Aang arriving at the gates of Ba Sing Se with Appa.”
-- “Illustrate the Big-O Boulder Run as an exciting coding-training scene.”
-- “Make a square mission badge for QUEST-RECURSION with glowing crystal tunnels.”
-- “Generate a vertical poster of Aang restoring balance to a city made of code.”
+- "Create a 16:9 image of a young tea plantation being mulched after transplanting."
+- "Illustrate a mature tea plantation during a plucking round at sunrise."
+- "Make a square reference image for STAGE-NURSERY showing shaded cutting beds."
 
 ## How it works
 
-[`codequest_agent/agent.py`](codequest_agent/agent.py) defines the quest data, four function tools, and the ADK agent:
+[`tea_plantation_agent/agent.py`](tea_plantation_agent/agent.py) defines the stage catalogue, four function tools, and the ADK agent:
 
-- `list_quests` lists all quests or filters them by difficulty.
-- `get_quest_details` returns the complete data for one quest.
-- `check_quest_readiness` compares a hero's level with the quest requirement.
-- `create_mission_image` generates a PNG and saves it as an ADK session artifact.
+- `list_stages` lists all growth stages or filters them by phase.
+- `get_stage_details` returns the complete data for one stage.
+- `recommend_stage_for_age` matches a plant's age in months to its current stage and care recommendations.
+- `create_plantation_image` generates a PNG and saves it as an ADK session artifact.
 
-Aang is instructed to ground all mission facts and readiness decisions in those tool results while responding as a warm, playful guide focused on learning and balance.
+Leaf is instructed to ground all stage facts and care recommendations in those tool results while responding as a warm, practical guide focused on real cultivation outcomes.
 
 ## Workshop extension ideas
 
-- Add filtering by guild or required level.
-- Add a tool that records completed quests and awards XP.
-- Move the quest catalogue into a JSON file or database.
-- Add automated tests for the quest tools.
+- Add filtering by region or climate to adjust stage timing.
+- Add a tool that logs plucking rounds or fertilization history.
+- Move the stage catalogue into a JSON file or database.
+- Add automated tests for the stage tools.
 
 ## Security
 
