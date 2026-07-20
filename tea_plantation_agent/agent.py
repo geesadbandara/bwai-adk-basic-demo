@@ -297,7 +297,6 @@ async def create_plantation_image(
                 image_config=types.ImageConfig(
                     aspect_ratio=aspect_ratio,
                     image_size="1K",
-                    output_mime_type="image/png",
                 ),
             ),
         )
